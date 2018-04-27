@@ -77,7 +77,7 @@ export class MyAuthConfig extends CustomConfig {
     SharedModule,
     InputTextModule,
     Ng2UiAuthModule.forRoot(MyAuthConfig),
-    BsDropdownModule.forRoot(),
+    //BsDropdownModule.forRoot(),
     AlertModule.forRoot(),
     TabsModule.forRoot(),
     ModalModule.forRoot(),

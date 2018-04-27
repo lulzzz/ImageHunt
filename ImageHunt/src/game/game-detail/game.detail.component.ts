@@ -112,7 +112,7 @@ export class GameDetailComponent implements OnInit {
   public modalRef: BsModalRef;
   currentLatitude: number;
   currentLongitude: number;
-
+  displayCreateNode: boolean = false;
   mapClicked(event) {
 
     this.currentLatitude = event.latLng.lat();
@@ -200,5 +200,11 @@ export class GameDetailComponent implements OnInit {
   teamsUpdated() {
     this._teamService.getTeams(this.game.id)
       .subscribe(res => this.game.teams = res.json());
+  }
+  showCreateNode(gameId: number) {
+    this.displayCreateNode = true;
+  }
+  createNodeClose(event) {
+    this.displayCreateNode = event;
   }
 }
