@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using ImageHuntTelegramBot.Responses;
 
 namespace ImageBotBuilderBotFramework
 {
@@ -7,12 +8,23 @@ namespace ImageBotBuilderBotFramework
     /// </summary>
     public class ImageHuntState : Dictionary<string, object>
     {
-      private int _gameId;
-      private int _teamId;
+      private const string GameKey = "Game";
+      private const string TeamKey = "Team";
       private const string GameIdKey = "GameId";
       private const string TeamIdKey = "TeamId";
         public int TurnCount { get; set; } = 0;
 
+      public GameResponse Game
+      {
+        get => (GameResponse) this[GameKey];
+        set => this[GameKey] = value;
+      }
+
+      public TeamResponse Team
+      {
+        get => (TeamResponse) this[TeamKey];
+        set => this[TeamKey] = value;
+      }
       public int GameId
       {
         get => (int) this[GameIdKey];
@@ -24,5 +36,6 @@ namespace ImageBotBuilderBotFramework
         get => (int) this[TeamIdKey];
         set => this[TeamIdKey] = value;
       }
+
     }
 }

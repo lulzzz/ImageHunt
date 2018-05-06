@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Net.Http;
 using Autofac;
+using ImageBotBuilderBotFramework.Dialogs;
 using ImageBotBuilderBotFramework.RexExpRecognozerMiddleware;
+using ImageHuntTelegramBot.WebServices;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Bot.Builder.BotFramework;
@@ -69,6 +72,13 @@ namespace ImageBotBuilderBotFramework
                 options.Middleware.Add(new ConversationState<ImageHuntState>(dataStore));
               //options.Middleware.Add(new RegExpRecognizerMiddleware());
             });
+          services.AddSingleton(new HttpClient()
+          {
+            BaseAddress = new Uri(Configuration.GetValue<string>("ImageHuntApi:Url"))
+          });
+          services.AddScoped<InitDialog>();
+      services.AddTransient<IGameWebService, GameWebService>();
+          services.AddScoped<ITeamWebService, TeamWebService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

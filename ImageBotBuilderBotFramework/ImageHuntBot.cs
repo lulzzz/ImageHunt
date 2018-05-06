@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Autofac;
+using ImageBotBuilderBotFramework.Dialogs;
 using Microsoft.Bot;
 using Microsoft.Bot.Builder;
 using Microsoft.Bot.Builder.Core.Extensions;
@@ -12,69 +13,18 @@ using Microsoft.Recognizers.Text;
 
 namespace ImageBotBuilderBotFramework
 {
-  public static class PromptStep
-  {
-    public const string GetGameId = "GetGameId";
-    public const string GetTeamId = "GetTeamId";
-    public const string InitSummary = "InitSummary";
-  }
   public class ImageHuntBot : IBot
   {
     private readonly IContainer _container;
     private readonly DialogSet _dialogs;
+    private InitDialog _initDialog;
 
-    public ImageHuntBot()
+    public ImageHuntBot(InitDialog initDialog)
     {
       //_container = container;
+      _initDialog = initDialog;
       _dialogs = new DialogSet();
-      _dialogs.Add(PromptStep.GetGameId,
-        new Microsoft.Bot.Builder.Dialogs.NumberPrompt<int>(Culture.French, GameIdValidator));
-      _dialogs.Add(PromptStep.GetTeamId, 
-        new Microsoft.Bot.Builder.Dialogs.NumberPrompt<int>(Culture.French, TeamIdValidator));
-      _dialogs.Add(PromptStep.InitSummary, 
-        new WaterfallStep[] { GetGameIdStep, GetTeamIdStep, InitSummaryStep });
-    }
-
-
-    private async Task GetGameIdStep(DialogContext dc, 
-                                     IDictionary<string, object> args, 
-                                     SkipStepFunction next)
-    {
-      await dc.Prompt(PromptStep.GetGameId, "Merci de m'indiquer l'id de la partie");
-    }
-    private async Task GetTeamIdStep(DialogContext dc, 
-                                     IDictionary<string, object> args, 
-                                     SkipStepFunction next)
-    {
-      var state = dc.Context.GetConversationState<ImageHuntState>();
-      state.GameId = (args as NumberResult<int>).Value;
-      await dc.Prompt(PromptStep.GetTeamId, "Merci de m'indiquer l'id de l'équipe");
-    }
-
-    private async Task InitSummaryStep(DialogContext dc, IDictionary<string, object> args, SkipStepFunction next)
-    {
-      var state = dc.Context.GetConversationState<ImageHuntState>();
-      state.TeamId = (args as NumberResult<int>).Value;
-      await dc.Context.SendActivity($"Ce chat est celui de l'équipe {state.TeamId}. Merci, le chat est prêt, bonne partie!");
-      await dc.End();
-    }
-
-    private async Task TeamIdValidator(ITurnContext context, NumberResult<int> tovalidate)
-    {
-      if (tovalidate.Value == 0)
-      {
-        tovalidate.Status = PromptStatus.OutOfRange;
-        await context.SendActivity("L'Id doit être différent de 0");
-      }
-    }
-
-    private async Task GameIdValidator(ITurnContext context, NumberResult<int> tovalidate)
-    {
-      if (tovalidate.Value == 0)
-      {
-        tovalidate.Status = PromptStatus.OutOfRange;
-        await context.SendActivity("L'Id doit être différent de 0");
-      }
+      _initDialog.FillDialog(_dialogs);
     }
 
 
@@ -100,7 +50,7 @@ namespace ImageBotBuilderBotFramework
             switch (context.Activity.Text)
             {
               case var s when s.StartsWith("/init"):
-                await dialogCtx.Begin(PromptStep.InitSummary);
+                await dialogCtx.Begin("InitSummary");
 
                 break;
             }
