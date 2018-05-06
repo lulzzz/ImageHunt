@@ -12,9 +12,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImageHuntTest", "ImageHuntT
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestUtilities", "TestUtilities\TestUtilities.csproj", "{BE585CE7-3C60-4429-A697-8B9C53E531FB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageHuntTelegramBot", "ImageHuntTelegramBot\ImageHuntTelegramBot.csproj", "{84B659AF-726C-497B-B09F-80BBD4F59E88}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImageHuntTelegramBot", "ImageHuntTelegramBot\ImageHuntTelegramBot.csproj", "{84B659AF-726C-497B-B09F-80BBD4F59E88}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageHuntBotTest", "ImageHuntBotTest\ImageHuntBotTest.csproj", "{9E52ECC8-520C-4221-B058-AE9BF69DC09C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImageHuntBotTest", "ImageHuntBotTest\ImageHuntBotTest.csproj", "{9E52ECC8-520C-4221-B058-AE9BF69DC09C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageBotBuilderBotFramework", "ImageBotBuilderBotFramework\ImageBotBuilderBotFramework.csproj", "{D55F22D1-DD86-4099-8BBC-0212C0CD5EFD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageBotBuilderBotFrameworkTest", "ImageBotBuilderBotFrameworkTest\ImageBotBuilderBotFrameworkTest.csproj", "{2E8F71A8-4713-43AB-8309-1698F507815B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -42,6 +46,14 @@ Global
 		{9E52ECC8-520C-4221-B058-AE9BF69DC09C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9E52ECC8-520C-4221-B058-AE9BF69DC09C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9E52ECC8-520C-4221-B058-AE9BF69DC09C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D55F22D1-DD86-4099-8BBC-0212C0CD5EFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D55F22D1-DD86-4099-8BBC-0212C0CD5EFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D55F22D1-DD86-4099-8BBC-0212C0CD5EFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D55F22D1-DD86-4099-8BBC-0212C0CD5EFD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E8F71A8-4713-43AB-8309-1698F507815B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E8F71A8-4713-43AB-8309-1698F507815B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E8F71A8-4713-43AB-8309-1698F507815B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E8F71A8-4713-43AB-8309-1698F507815B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

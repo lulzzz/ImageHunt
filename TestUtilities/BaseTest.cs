@@ -1,10 +1,18 @@
 ﻿using System.IO;
 using System.Reflection;
+using Autofac;
+using Microsoft.AspNetCore.Hosting.Internal;
 
 namespace TestUtilities
 {
     public class BaseTest
     {
+      protected ContainerBuilder _testContainerBuilder;
+
+      public BaseTest()
+      {
+        _testContainerBuilder = new ContainerBuilder();
+      }
         protected byte[] GetImageFromResource(Assembly assembly, string resourceName)
         {
           using (var stream = assembly.GetManifestResourceStream(resourceName))
