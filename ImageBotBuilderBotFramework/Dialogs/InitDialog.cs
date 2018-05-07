@@ -9,8 +9,8 @@ using Microsoft.Recognizers.Text;
 
 namespace ImageBotBuilderBotFramework.Dialogs
 {
-    public class InitDialog
-    {
+    public class InitDialog : IDialog
+  {
       private readonly IGameWebService _gameWebService;
       private readonly ITeamWebService _teamWebService;
 
@@ -21,7 +21,6 @@ namespace ImageBotBuilderBotFramework.Dialogs
         public const string InitSummary = "InitSummary";
       }
 
-      protected List<(string, IDialog)> _dialogs;
       public InitDialog(IGameWebService gameWebService, ITeamWebService teamWebService)
       {
         _gameWebService = gameWebService;
@@ -38,7 +37,10 @@ namespace ImageBotBuilderBotFramework.Dialogs
           new WaterfallStep[] { GetGameIdStep, GetTeamIdStep, InitSummaryStep });
 
       }
-      private async Task GetGameIdStep(DialogContext dc,
+
+    public string FirstStep => PromptStep.InitSummary;
+
+    private async Task GetGameIdStep(DialogContext dc,
         IDictionary<string, object> args,
         SkipStepFunction next)
       {

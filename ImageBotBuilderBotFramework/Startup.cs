@@ -77,7 +77,9 @@ namespace ImageBotBuilderBotFramework
             BaseAddress = new Uri(Configuration.GetValue<string>("ImageHuntApi:Url"))
           });
           services.AddScoped<InitDialog>();
-      services.AddTransient<IGameWebService, GameWebService>();
+          services.AddScoped<StartDialog>();
+          services.AddScoped<PictureDialog>();
+          services.AddTransient<IGameWebService, GameWebService>();
           services.AddScoped<ITeamWebService, TeamWebService>();
         }
 

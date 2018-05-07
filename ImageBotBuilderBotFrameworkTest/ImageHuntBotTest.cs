@@ -28,6 +28,7 @@ namespace ImageBotBuilderBotFrameworkTest
         _teamWebService = A.Fake<ITeamWebService>();
         _testContainerBuilder.RegisterInstance(_teamWebService);
         _testContainerBuilder.RegisterType<InitDialog>();
+        _testContainerBuilder.RegisterType<StartDialog>();
 
         var testContainer = _testContainerBuilder.Build();
 
