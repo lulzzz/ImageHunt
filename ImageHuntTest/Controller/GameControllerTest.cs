@@ -488,6 +488,17 @@ namespace ImageHuntTest.Controller
           Check.That(result).IsInstanceOf<OkObjectResult>();
           A.CallTo(() => _actionService.GetScoresForGame(1)).MustHaveHappened();
       }
+
+      [Fact]
+      public void GetPositionsOfTeams()
+      {
+          // Arrange
+          
+          // Act
+          _target.GetPositionsOfTeams(1);
+          // Assert
+          A.CallTo(() => _actionService.GetTeamsPositionsForGame(1)).MustHaveHappened();
+      }
   }
 
 }

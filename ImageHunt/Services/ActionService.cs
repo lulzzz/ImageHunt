@@ -96,5 +96,17 @@ namespace ImageHunt.Services
           .GroupBy(ga => ga.Team)
           .Select(g=>new Score(){Team = g.Key, Points = g.Sum(_=>_.PointsEarned)});
       }
+
+      public IEnumerable<KeyValuePair<Team, IEnumerable<Position>>> GetTeamsPositionsForGame(int gameId)
+      {
+        var positionsPerTeams = Context.GameActions
+          .Include(ga=>ga.Game).Include(ga=>ga.Team)
+          .Where(ga=>ga.Game.Id == gameId)
+          .Where(ga=>ga.Action == Action.SubmitPosition)
+          .GroupBy(ga => ga.Team)
+          .Select(g=>new KeyValuePair<Team, IEnumerable<Position>>
+            (g.Key, g.Select(_=> new Position(){Latitude = _.Latitude, Longitude = _.Longitude})));
+        return positionsPerTeams;
+      }
     }
 }

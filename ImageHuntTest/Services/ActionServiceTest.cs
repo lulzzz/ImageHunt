@@ -405,5 +405,38 @@ namespace ImageHuntTest.Services
             Check.That(result.Extracting("Points")).ContainsExactly(expectedScores.Extracting("Points"));
             Check.That(result.Extracting("Team")).ContainsExactly(expectedScores.Extracting("Team"));
         }
+
+        [Fact]
+        public void GetTeamsPositionsForGame()
+        {
+            // Arrange
+            var games = new List<Game>() { new Game(), new Game() };
+            _context.Games.AddRange(games);
+            _context.SaveChanges();
+            var teams = new List<Team>(){new Team(), new Team(), new Team()};
+            _context.Teams.AddRange(teams);
+            _context.SaveChanges();
+
+            var gameActions = new List<GameAction>
+            {
+                new GameAction() {Action = Action.StartGame, Game = games[1], Team = teams[0]},
+                new GameAction() {Action = Action.SubmitPosition, Game = games[1], Team = teams[0], Latitude = 48.8915138244629, Longitude = 2.23110699653625},
+                new GameAction() {Action = Action.SubmitPosition, Game = games[0], Team = teams[0], Latitude = 48.8915138244629, Longitude = 2.23110699653625},
+                new GameAction() {Action = Action.SubmitPosition, Game = games[1], Team = teams[1], Latitude = 48.891513824, Longitude = 2.2311068653625},
+                new GameAction() {Action = Action.SubmitPosition, Game = games[1], Team = teams[0], Latitude = 48.891519824, Longitude = 2.211068653625},
+                new GameAction() {Action = Action.SubmitPosition, Game = games[1], Team = teams[1], Latitude = 48.891593824, Longitude = 2.231106853625},
+                new GameAction() {Action = Action.SubmitPosition, Game = games[1], Team = teams[0], Latitude = 48.891569824, Longitude = 2.2110653625},
+                new GameAction() {Action = Action.SubmitPosition, Game = games[1], Team = teams[1], Latitude = 48.894593824, Longitude = 2.23116853625},
+                new GameAction() {Action = Action.SubmitPosition, Game = games[1], Team = teams[0], Latitude = 48.8915679824, Longitude = 2.27653625},
+            };
+            _context.GameActions.AddRange(gameActions);
+            _context.SaveChanges();
+            // Act
+            var results = _target.GetTeamsPositionsForGame(games[1].Id);
+            // Assert
+            Check.That(results.Extracting("Key")).Contains(teams[0], teams[1]);
+            Check.That(results.First().Value).HasSize(4);
+            Check.That(results.Last().Value).HasSize(3);
+        }
   }
 }
