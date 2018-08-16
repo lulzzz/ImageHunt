@@ -28,7 +28,7 @@ namespace ImageHunt.Data
     public DbSet<Picture> Pictures { get; set; }
     public DbSet<ParentChildren> ParentChildren { get; set; }
     public DbSet<GameAction> GameActions { get; set; }
-    //public DbSet<TeamPlayer> TeamPlayers { get; set; }
+    public DbSet<Playbox> Playboxes { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
